@@ -1,10 +1,12 @@
+
+
 class App {
   private htmlElement: HTMLElement;
 
   constructor(selector: string) {
     const foundElement = document.querySelector<HTMLElement>(selector);
 
-    if (foundElement === null) throw new Error(`Nerastas elementas su selektoriumi '${selector}'`);
+    if (foundElement === null) throw new Error(`Nerastas elementas is viso su selektorium irgi '${selector}'`);
 
     this.htmlElement = foundElement;
   }

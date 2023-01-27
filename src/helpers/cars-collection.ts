@@ -1,7 +1,7 @@
-import type Brand from "../types/brand";
-import type Car from "../types/car";
-import type Model from "../types/model";
-import type CarJoined from "../types/car-joined";
+import Car from '../types/car';
+import Model from '../types/model';
+import Brand from '../types/brand';
+import CarJoined from '../types/car-joined';
 
 type CarsCollectionProps = {
 model:Model[],
@@ -13,32 +13,28 @@ class CarsCollection {
  private  model: Model[];
  private  car:Car[];
  private brand :Brand[];
+ 
 
  constructor({model,car,brand}:CarsCollection) {
     this.model = JSON.parse(JSON.stringify(model));
     this.brand = JSON.parse(JSON.stringify(brand));
     this.car = JSON.parse(JSON.stringify(car));
   
-    joinCar(model: Model):CarJoined{
-        const temp =this.privateModelcategory
-        .filter((modelcategory) => modelcategory.modelId ===model.id)
-        .map((modelcategory)=>modelId.model.id);
-
-       const.categories = this.privateModelcategory
-       .filter((model) => modelId.includes(model.id));
-       .join(',') 
-
-
+     private.joinCar = ({ d, ...car}: Car) => {
+        const { brands, models } = this.props;
+        const carModel = models.find((model) => model.id === modelId);
+        const carBrand = brands.find((brand) => brand.id === carModel?.brandId);
+    
         return {
-            ...model,
-            categories,
+          ...car,
+          brand: (carBrand && carBrand.title) ?? 'nodata',
+          model: (carModel && carModel.title) ?? 'nodata',
         };
-
-    }
- get all(): CarJoined[]{
-    return this.CarJoined.map(this.joinCar);
+      };
  }
-}
+      public get all(): CarJoined[] {
+        return this.props.cars.map(this.joinCar);
+      }
 }
 
 export default CarsCollection;

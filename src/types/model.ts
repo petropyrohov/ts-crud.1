@@ -1,10 +1,7 @@
 type Model = {
-    id:string,
-    title:string,
-    price:number,
-    year: number
-    brand: string,
-    model: string
-};
+    id: string,
+    title: string,
+    brandId: string,
+  };
 
 export default Model;
