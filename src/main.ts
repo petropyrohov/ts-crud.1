@@ -1,7 +1,7 @@
-import type Brand from "../types/brand";
-import type Car from "../types/car";
-import type Model from "../types/model";
-import type CarJoined from "../types/car-joined";
+import type Brand from '../types/brand';
+import type Car from '../types/car';
+import type Model from '../types/model';
+import type CarJoined from '../types/car-joined';
 
 const carsCollection = new CarsCollection({
     Model,
