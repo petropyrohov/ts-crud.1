@@ -1,3 +1,4 @@
+
 type CarJoined = {
     id:string,
     price:number,
