@@ -1,4 +1,4 @@
-import type Brand from '../types/brand';
+/*import type Brand from '../types/brand';
 import type Car from '../types/car';
 import type Model from '../types/model';
 import type CarJoined from '../types/car-joined';
@@ -15,7 +15,10 @@ console.table({
     joinCar,
 });
 
+
 console.table(carsCollection.all)
+*/
+//Jau nereiks 
 
 import App from './components/app';
 

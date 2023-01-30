@@ -9,19 +9,21 @@ export type TableProps<Type> = {
   title: string,
   columns: Type,
   rowsData: Type[],
+  onDelete: (id: string) => void,
 };
 
 class Table<Type extends RowData> {
-  public htmlElement: HTMLTableElement;
-
   private props: TableProps<Type>;
 
   private tbody: HTMLTableSectionElement;
 
   private thead: HTMLTableSectionElement;
 
+  public htmlElement: HTMLTableElement;
+
   public constructor(props: TableProps<Type>) {
     this.props = props;
+
     this.checkColumnsCompatability();
 
     this.htmlElement = document.createElement('table');
@@ -48,7 +50,22 @@ class Table<Type extends RowData> {
     }
   };
 
-  private initializeHead = (): void => {
+  private initialize = (): void => {
+    this.htmlElement.className = 'table table-striped order border p-3';
+    this.htmlElement.append(
+      this.thead,
+      this.tbody,
+    );
+
+    this.renderView();
+  };
+
+  private renderView = (): void => {
+    this.renderHeadView();
+    this.renderBodyView();
+  };
+
+  private renderHeadView = (): void => {
     const { title, columns } = this.props;
 
     const headersArray = Object.values(columns);
@@ -58,11 +75,10 @@ class Table<Type extends RowData> {
       <tr>
         <th colspan="${headersArray.length}" class="text-center h3">${title}</th>
       </tr>
-      <tr>${headersRowHtmlString}</tr>
-    `;
+      <tr>${headersRowHtmlString}</tr>`;
   };
 
-  private initializeBody = (): void => {
+  private renderBodyView = (): void => {
     const { rowsData, columns } = this.props;
 
     this.tbody.innerHTML = '';
@@ -76,22 +92,39 @@ class Table<Type extends RowData> {
 
         rowHtmlElement.innerHTML = cellsHtmlString;
 
+        this.addActionsCell(rowHtmlElement, rowData.id);
+
         return rowHtmlElement;
       });
 
     this.tbody.append(...rowsHtmlElements);
   };
 
-  private initialize = (): void => {
-    this.initializeHead();
-    this.initializeBody();
+  private addActionsCell = (tr: HTMLTableRowElement, id: string) => {
+    const { onDelete } = this.props;
 
-    this.htmlElement.className = 'table table-striped order border p-3';
-    this.htmlElement.append(
-      this.thead,
-      this.tbody,
-    );
+    const buttonCell = document.createElement('td');
+
+    const deleteButton = document.createElement('button');
+    deleteButton.type = 'button';
+    deleteButton.innerHTML = 'Delete';
+    deleteButton.className = 'btn btn-danger';
+    deleteButton.style.width = '80px';
+    deleteButton.addEventListener('click', () => onDelete(id));
+
+    buttonCell.append(deleteButton);
+    tr.append(buttonCell);
+  };
+
+  public updateProps = (newProps: Partial<TableProps<Type>>) => {
+    this.props = {
+      ...this.props,
+      ...newProps,
+    };
+
+    this.renderView();
   };
 }
 
 export default Table;
+
