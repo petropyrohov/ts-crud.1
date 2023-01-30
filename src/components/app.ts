@@ -3,10 +3,10 @@ import cars from '../data/cars';
 import brands from '../data/brands';
 import models from '../data/models';
 import CarsCollection, { CarProps } from '../helpers/cars-collection';
-import stringifyProps, { StringifyObjectProps } from '../helpers/stingify-props';
+import stringifyProps, { StringifyObjectProps } from '../helpers/stringify-object';
 import CarJoined from '../types/car-joined';
 import SelectField from './select-field';
-import CarForm, { Values } from './car-form';
+import CarForm, { Values } from './car-forms';
 
 class App {
   private carsCollection: CarsCollection;
